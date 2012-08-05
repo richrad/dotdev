@@ -1,0 +1,21 @@
+<script type="text/javascript">
+safari.application.addEventListener("beforeNavigate", checkURL, true);
+
+function checkURL(event)
+{
+	var checkForSearch = /google/i;
+	var checkForDev = /[\w\d]+\.dev/i;
+	var theURL = event.url;
+	var isSearch = checkForSearch.test(theURL);
+	var isDev = checkForDev.test(theURL);
+	var theNewURL = "http://" + checkForDev.exec(theURL);
+	
+	
+	if(isSearch && isDev)
+	{
+		event.preventDefault();
+		safari.application.activeBrowserWindow.activeTab.url = theNewURL;
+	}
+	
+}
+</script>
